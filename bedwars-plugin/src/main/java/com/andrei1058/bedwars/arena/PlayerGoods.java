@@ -95,7 +95,9 @@ class PlayerGoods {
         this.gamemode = p.getGameMode();
         this.allowFlight = p.getAllowFlight();
         this.flying = p.isFlying();
+        // TODO does this require EazyNick Support?
         this.tabName = p.getPlayerListName();
+        // TODO does this require EazyNick Support?
         this.displayName = p.getDisplayName();
 
         /* prepare for arena */

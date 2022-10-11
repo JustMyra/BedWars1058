@@ -65,6 +65,7 @@ import com.andrei1058.bedwars.money.internal.MoneyPerMinuteTask;
 import com.andrei1058.bedwars.shop.ShopCache;
 import com.andrei1058.bedwars.sidebar.BedWarsScoreboard;
 import com.andrei1058.bedwars.support.citizens.JoinNPC;
+import com.andrei1058.bedwars.support.eazynick.EazyNickSupport;
 import com.andrei1058.bedwars.support.papi.SupportPAPI;
 import com.andrei1058.bedwars.support.vault.WithEconomy;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -502,8 +503,12 @@ public class Arena implements IArena {
                         getMsg(on, Messages.COMMAND_JOIN_PLAYER_JOIN_MSG)
                             .replace("{vPrefix}", getChatSupport().getPrefix(p))
                             .replace("{vSuffix}", getChatSupport().getSuffix(p))
-                            .replace("{playername}", p.getName())
-                            .replace("{player}", p.getDisplayName())
+                            /* EazyNick Support -- START */
+                            //.replace("{playername}", p.getName())
+                            .replace("{playername}", EazyNickSupport.getName(p))
+                            //.replace("{player}", p.getDisplayName())
+                            .replace("{player}", EazyNickSupport.getDisplayName(p))
+                            /* EazyNick Support -- END */
                             .replace("{on}", String.valueOf(getPlayers().size()))
                             .replace("{max}", String.valueOf(getMaxPlayers()))
                 );
@@ -852,18 +857,22 @@ public class Arena implements IArena {
                         Language lang = Language.getPlayerLanguage(inGame);
                         inGame.sendMessage(event.getMessage().apply(inGame)
                                 .replace("{PlayerTeamName}", team.getDisplayName(lang))
-                                .replace("{PlayerColor}", team.getColor().chat().toString()).replace("{PlayerName}", p.getDisplayName())
+                                //.replace("{PlayerColor}", team.getColor().chat().toString()).replace("{PlayerName}", p.getDisplayName()) // EazyNick Support
+                                .replace("{PlayerColor}", team.getColor().chat().toString()).replace("{PlayerName}", EazyNickSupport.getDisplayName(p))
                                 .replace("{KillerColor}", killerTeam.getColor().chat().toString())
-                                .replace("{KillerName}", lastDamager.getDisplayName())
+                                //.replace("{KillerName}", lastDamager.getDisplayName()) // EazyNick Support
+                                .replace("{KillerName}", EazyNickSupport.getDisplayName(lastDamager))
                                 .replace("{KillerTeamName}", killerTeam.getDisplayName(lang)));
                     }
                     for (Player inGame : getSpectators()) {
                         Language lang = Language.getPlayerLanguage(inGame);
                         inGame.sendMessage(event.getMessage().apply(inGame)
                                 .replace("{PlayerTeamName}", team.getDisplayName(lang))
-                                .replace("{PlayerColor}", team.getColor().chat().toString()).replace("{PlayerName}", p.getDisplayName())
+                                //.replace("{PlayerColor}", team.getColor().chat().toString()).replace("{PlayerName}", p.getDisplayName()) // EazyNick Support
+                                .replace("{PlayerColor}", team.getColor().chat().toString()).replace("{PlayerName}", EazyNickSupport.getDisplayName(p))
                                 .replace("{KillerColor}", killerTeam.getColor().chat().toString())
-                                .replace("{KillerName}", lastDamager.getDisplayName())
+                                //.replace("{KillerName}", lastDamager.getDisplayName()) // EazyNick Support
+                                .replace("{KillerName}", EazyNickSupport.getDisplayName(lastDamager))
                                 .replace("{KillerTeamName}", killerTeam.getDisplayName(lang)));
                     }
                     PlayerDrops.handlePlayerDrops(this, p, lastDamager, team, killerTeam, cause, new ArrayList<>(Arrays.asList(p.getInventory().getContents())));

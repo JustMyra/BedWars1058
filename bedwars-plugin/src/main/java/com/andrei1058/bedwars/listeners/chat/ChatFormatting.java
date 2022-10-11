@@ -31,6 +31,7 @@ import com.andrei1058.bedwars.api.server.ServerType;
 import com.andrei1058.bedwars.arena.Arena;
 import com.andrei1058.bedwars.commands.shout.ShoutCommand;
 import com.andrei1058.bedwars.configuration.Permissions;
+import com.andrei1058.bedwars.support.eazynick.EazyNickSupport;
 import com.andrei1058.bedwars.support.papi.SupportPAPI;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -135,9 +136,13 @@ public class ChatFormatting implements Listener {
         content = content
                 .replace("{vPrefix}", getChatSupport().getPrefix(player))
                 .replace("{vSuffix}", getChatSupport().getSuffix(player))
-                .replace("{playername}", player.getName())
                 .replace("{level}", getLevelSupport().getLevel(player))
-                .replace("{player}", player.getDisplayName());
+                /* EazyNick Support -- START */
+                //.replace("{playername}", player.getName())
+                .replace("{playername}", EazyNickSupport.getName(player))
+                //.replace("{player}", player.getDisplayName())
+                .replace("{player}", EazyNickSupport.getDisplayName(player));
+                /* EazyNick Support -- END */
         if (team != null) {
             String teamFormat = getMsg(player, Messages.FORMAT_PAPI_PLAYER_TEAM_TEAM)
                     .replace("{TeamColor}", team.getColor().chat() + "")
@@ -153,13 +158,35 @@ public class ChatFormatting implements Listener {
     }
 
     private static String clearShout(String msg, Language lang) {
+        /* Fixes "/shout shout" shouting "" -- By JustMyra_
         if (msg.startsWith("!")) msg = msg.replaceFirst("!", "");
         if (msg.startsWith("SHOUT")) msg = msg.replaceFirst("SHOUT", "");
         if (msg.startsWith("shout")) msg = msg.replaceFirst("shout", "");
         if (msg.startsWith(lang.m(Messages.MEANING_SHOUT))) {
             msg = msg.replaceFirst(lang.m(Messages.MEANING_SHOUT), "");
-        }
-        return msg.trim();
+        } */
+	
+	    if (msg.startsWith("!"))
+	    {
+		    return msg.replaceFirst("!", "").trim();
+	    }
+	
+	    if (msg.startsWith("SHOUT"))
+	    {
+		    return msg.replaceFirst("SHOUT", "").trim();
+	    }
+	
+	    if (msg.startsWith("shout"))
+	    {
+		    return msg.replaceFirst("shout", "").trim();
+	    }
+	
+	    if (msg.startsWith(lang.m(Messages.MEANING_SHOUT)))
+	    {
+		    return msg.replaceFirst(lang.m(Messages.MEANING_SHOUT), "").trim();
+	    }
+	
+	    return msg.trim();
     }
 
     @SafeVarargs

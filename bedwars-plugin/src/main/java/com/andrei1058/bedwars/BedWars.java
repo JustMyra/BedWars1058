@@ -66,6 +66,7 @@ import com.andrei1058.bedwars.sidebar.*;
 import com.andrei1058.bedwars.stats.StatsManager;
 import com.andrei1058.bedwars.support.citizens.CitizensListener;
 import com.andrei1058.bedwars.support.citizens.JoinNPC;
+import com.andrei1058.bedwars.support.eazynick.EazyNickSupport;
 import com.andrei1058.bedwars.support.papi.PAPISupport;
 import com.andrei1058.bedwars.support.papi.SupportPAPI;
 import com.andrei1058.bedwars.support.party.NoParty;
@@ -479,7 +480,14 @@ public class BedWars extends JavaPlugin {
                 economy = new NoEconomy();
             }
         });
-
+    
+        /* EazyNick Support -- by JustMyra_*/
+        if (Bukkit.getPluginManager().getPlugin("EazyNick") != null)
+        {
+            getLogger().info("Hooked into EazyNick support!");
+            EazyNickSupport.setSupport(new EazyNickSupport.WithSupport());
+        }
+        
         /* Chat support */
         if (config.getBoolean(ConfigPath.GENERAL_CHAT_FORMATTING)) {
             registerEvents(new ChatFormatting());

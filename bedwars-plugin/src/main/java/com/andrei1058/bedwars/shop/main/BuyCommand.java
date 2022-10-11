@@ -66,6 +66,7 @@ public class BuyCommand implements IBuyItem {
     @Override
     public void give(Player player, IArena arena) {
         BedWars.debug("Giving BuyCMD: " + getUpgradeIdentifier() + " to: " + player.getName());
+        // TODO does this require EazyNick Support ?
         String playerName = player.getName();
         String playerUUID = player.getUniqueId().toString();
         ITeam team = arena.getTeam(player);

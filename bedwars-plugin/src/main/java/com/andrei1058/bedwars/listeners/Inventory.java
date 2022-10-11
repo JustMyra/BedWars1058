@@ -164,7 +164,8 @@ public class Inventory implements Listener {
 
         IArena a = Arena.getArenaByPlayer(p);
         if (a != null) {
-
+    
+            // TODO does this require EazyNick Support ?
             //Prevent players from moving items in stats GUI
             if (nms.getInventoryName(e).equals(Language.getMsg(p, Messages.PLAYER_STATS_GUI_INV_NAME).replace("{playername}", p.getName()).replace("{player}", p.getDisplayName()))) {
                 e.setCancelled(true);

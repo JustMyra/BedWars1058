@@ -29,6 +29,7 @@ import com.andrei1058.bedwars.api.language.Language;
 import com.andrei1058.bedwars.api.language.Messages;
 import com.andrei1058.bedwars.api.server.ServerType;
 import com.andrei1058.bedwars.arena.Arena;
+import com.andrei1058.bedwars.support.eazynick.EazyNickSupport;
 import com.andrei1058.spigot.sidebar.*;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -286,8 +287,12 @@ public class BedWarsScoreboard {
                     .replace("{server_ip}", BedWars.config.getString(ConfigPath.GENERAL_CONFIG_PLACEHOLDERS_REPLACEMENTS_SERVER_IP))
                     .replace("{version}", plugin.getDescription().getVersion())
                     .replace("{server}", config.getString(ConfigPath.GENERAL_CONFIGURATION_BUNGEE_OPTION_SERVER_ID))
-                    .replace("{playername}", player.getName())
-                    .replace("{player}", player.getDisplayName())
+                    /* EazyNick Support -- START */
+                    //.replace("{playername}", player.getName())
+                    .replace("{playername}", EazyNickSupport.getName(player))
+                    //.replace("{player}", player.getDisplayName())
+                    .replace("{player}", EazyNickSupport.getDisplayName(player))
+                    /* EazyNick Support -- END */
                     .replace("{money}", String.valueOf(getEconomy().getMoney(player)));
 
             if (arena == null) {
